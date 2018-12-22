@@ -9,7 +9,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     golfBallSprite.vx = 45
     golfBallSprite.vy = -50
     golfBallSprite.ay = 9.81
-    golfBallSprite.ax = -2
+    golfBallSprite.ax = 2
 })
 let mySprite = 0
 mySprite = null
