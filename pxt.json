@@ -1,0 +1,14 @@
+{
+    "name": "Golf",
+    "dependencies": {
+        "device": "*",
+        "darts": "*"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "custom.ts"
+    ]
+}
