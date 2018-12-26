@@ -6,7 +6,8 @@ enum SpriteKind {
 }
 let golfBallSprite: Sprite = null
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    golfBallSprite.vx = 45
+    music.golfBallHit.playUntilDone()
+golfBallSprite.vx = 45
     golfBallSprite.vy = -50
     golfBallSprite.ay = 9.81
     golfBallSprite.ax = 2

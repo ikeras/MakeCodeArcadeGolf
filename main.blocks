@@ -1,0 +1,310 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable id="Y)::GLaXb8uSh*J,Vd(u" type="SpriteKind">0Player</variable>
+    <variable id="d!ATuc,(c59o7CTrFumu" type="SpriteKind">1Projectile</variable>
+    <variable id="xmemxh%?e|@H^D;a1GwQ" type="SpriteKind">2Food</variable>
+    <variable id="6Hi?*XB]X5b/gm5g3]2t" type="SpriteKind">3Enemy</variable>
+    <variable id="4%Ph`%sm;aDo!ig;]`Mr" type="">golfBallSprite</variable>
+  </variables>
+  <block type="pxt-on-start" x="20" y="20">
+    <statement name="HANDLER">
+      <block type="typescript_statement" editable="false">
+        <mutation numlines="1" line0="let mySprite = 0" declaredvars="mySprite"></mutation>
+        <field name="LINE0">let mySprite = 0</field>
+        <next>
+          <block type="typescript_statement" editable="false">
+            <mutation numlines="1" line0="mySprite = null"></mutation>
+            <field name="LINE0">mySprite = null</field>
+            <next>
+              <block type="gamesetbackgroundcolor">
+                <value name="color">
+                  <shadow type="colorindexpicker">
+                    <field name="index">9</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="gamesettilemap">
+                    <value name="map">
+                      <shadow type="tilemap_image_picker"></shadow>
+                      <block type="screen_image_picker">
+                        <field name="img">img`
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 1 . . . . . . . . . . . 
+. . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . 1 . 
+. . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . 1 . . . . . . . 
+. . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . 
+. . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 7 7 7 7 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 7 e e e e 
+. . . . . . . . . . . . . . . . . . . . . . . . . 3 7 e e e e e 
+. . . . . 7 7 7 7 7 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 d 7 e e e e e 
+. . . . 7 e e e e e 8 e e e e e e e e e e e e e 7 7 7 e e e e e 
+7 7 7 7 e e e e e e 8 e e e e e e e e e e e e e e e e e e e e e 
+e e e e e e e e e e 8 e e e e e e e e e e e e e e e e e e e e e 
+e e e e e e e e e e 8 e e e e e e e e e e e e e e e e e e e e e 
+`
+                        </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="gamesettile">
+                        <mutation _input_init="false" _expanded="0"></mutation>
+                        <value name="index">
+                          <shadow type="colorindexpicker">
+                            <field name="index">3</field>
+                          </shadow>
+                        </value>
+                        <value name="img">
+                          <shadow type="screen_image_picker">
+                            <field name="img">img`
+. . . . . . . . 2 2 1 1 . . . . 
+. . . . . . 2 2 2 2 1 1 . . . . 
+. . . . 2 2 2 2 2 2 1 1 . . . . 
+. . 2 2 2 2 2 2 2 2 1 1 . . . . 
+. . 2 2 2 2 2 2 2 2 1 1 . . . . 
+. . . . 2 2 2 2 2 2 1 1 . . . . 
+. . . . . . 2 2 2 2 1 1 . . . . 
+. . . . . . . . 2 2 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+. . . . . . . . . . 1 1 . . . . 
+`
+                            </field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="gamesettile">
+                            <mutation _input_init="false" _expanded="0"></mutation>
+                            <value name="index">
+                              <shadow type="colorindexpicker">
+                                <field name="index">1</field>
+                              </shadow>
+                            </value>
+                            <value name="img">
+                              <shadow type="screen_image_picker">
+                                <field name="img">img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . f f f f f f f f . . . . . 
+. . f 1 1 1 1 1 1 1 1 f . . . . 
+. f 1 1 1 1 1 1 1 1 1 1 f . . . 
+. f 1 1 1 f 1 1 f 1 1 1 f . . . 
+. f 1 1 1 f 1 1 f 1 1 1 f . . . 
+f 1 1 1 1 f 1 1 f 1 1 1 1 f . . 
+f 1 1 1 1 1 1 1 1 1 1 1 1 f . . 
+f 1 1 1 1 1 1 1 1 1 1 1 1 f . . 
+f 1 1 1 f 1 1 1 1 f 1 1 1 f . . 
+. f 1 1 1 f f f f 1 1 1 f . . . 
+. f 1 1 1 1 1 1 1 1 1 1 f . . . 
+. f 1 1 1 1 1 1 1 1 1 1 f . . . 
+. . f 1 1 1 f f 1 1 1 f . . . . 
+. . . f f f . . f f f . . . . . 
+`
+                                </field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="gamesettile">
+                                <mutation _input_init="true" _expanded="1"></mutation>
+                                <value name="index">
+                                  <shadow type="colorindexpicker">
+                                    <field name="index">7</field>
+                                  </shadow>
+                                </value>
+                                <value name="img">
+                                  <shadow type="screen_image_picker">
+                                    <field name="img">img`
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+`
+                                    </field>
+                                  </shadow>
+                                </value>
+                                <value name="wall">
+                                  <shadow type="toggleOnOff">
+                                    <field name="on">true</field>
+                                  </shadow>
+                                </value>
+                                <next>
+                                  <block type="variables_set">
+                                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                    <value name="VALUE">
+                                      <shadow type="math_number">
+                                        <field name="NUM">0</field>
+                                      </shadow>
+                                      <block type="spritescreate">
+                                        <value name="img">
+                                          <shadow type="screen_image_picker">
+                                            <field name="img">img`
+. f f . 
+f f f f 
+f f f f 
+. f f . 
+`
+                                            </field>
+                                          </shadow>
+                                        </value>
+                                        <value name="kind">
+                                          <shadow type="spritetype">
+                                            <field name="MEMBER">Projectile</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="spritesetpos">
+                                        <value name="sprite">
+                                          <block type="variables_get">
+                                            <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                          </block>
+                                        </value>
+                                        <value name="x">
+                                          <shadow type="positionPicker">
+                                            <field name="index">7</field>
+                                          </shadow>
+                                        </value>
+                                        <value name="y">
+                                          <shadow type="positionPicker">
+                                            <field name="index">206</field>
+                                          </shadow>
+                                        </value>
+                                        <next>
+                                          <block type="spritesetsetflag">
+                                            <field name="flag">SpriteFlag.BounceOnWall</field>
+                                            <value name="sprite">
+                                              <block type="variables_get">
+                                                <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                              </block>
+                                            </value>
+                                            <value name="on">
+                                              <shadow type="toggleOnOff">
+                                                <field name="on">true</field>
+                                              </shadow>
+                                            </value>
+                                            <next>
+                                              <block type="camerafollow">
+                                                <value name="sprite">
+                                                  <shadow type="variables_get">
+                                                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                                  </shadow>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="keyonevent" x="686" y="20">
+    <field name="button">controller.A</field>
+    <field name="event">ControllerButtonEvent.Pressed</field>
+    <statement name="HANDLER">
+      <block type="mixer_play_sound_until_done">
+        <field name="sound">music.golfBallHit</field>
+        <next>
+          <block type="typescript_statement" editable="false">
+            <mutation numlines="1" line0="music.golfBallLand.playUntilDone()"></mutation>
+            <field name="LINE0">music.golfBallLand.playUntilDone()</field>
+            <next>
+              <block type="Sprite_blockCombine_set">
+                <field name="property">Sprite.vx@set</field>
+                <value name="mySprite">
+                  <block type="variables_get">
+                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                  </block>
+                </value>
+                <value name="value">
+                  <shadow type="math_number">
+                    <field name="NUM">45</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="Sprite_blockCombine_set">
+                    <field name="property">Sprite.vy@set</field>
+                    <value name="mySprite">
+                      <block type="variables_get">
+                        <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                      </block>
+                    </value>
+                    <value name="value">
+                      <shadow type="math_number">
+                        <field name="NUM">-50</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="Sprite_blockCombine_set">
+                        <field name="property">Sprite.ay@set</field>
+                        <value name="mySprite">
+                          <block type="variables_get">
+                            <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                          </block>
+                        </value>
+                        <value name="value">
+                          <shadow type="math_number">
+                            <field name="NUM">9.81</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="Sprite_blockCombine_set">
+                            <field name="property">Sprite.ax@set</field>
+                            <value name="mySprite">
+                              <block type="variables_get">
+                                <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                              </block>
+                            </value>
+                            <value name="value">
+                              <shadow type="math_number">
+                                <field name="NUM">2</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
