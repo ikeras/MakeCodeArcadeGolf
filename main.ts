@@ -13,7 +13,7 @@ let golferSpriteAnimations: animation.SpriteAnimationGroup = null;
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     golferSpriteAnimations.setActiveAnimation(golferSwingingAnimationIndex, (frame) => {
         if (frame === 4) {
-            music.golfBallHit.playUntilDone();
+            music.golfBallHit.play();
             golfBallSprite.vx = 45;
             golfBallSprite.vy = -50;
             golfBallSprite.ay = 9.81;
@@ -189,16 +189,16 @@ const golferFrame3 = img`
     . . f 1 f f f 1 1 f f f f f f f f f f f 1 f . .
     . . f 1 f f f f f f f f f f f f f f f f 1 f . .
     . . f 1 f f f f f f f f f f f f f f f f 1 f . .
-    . . c 1 f f f f f f f f f f f f f f f f 1 f . .
+    . . f 1 f f f f f f f f f f f f f f f f 1 f . .
     . c f f 1 f f f f f f f f f f f f f f f 1 f . .
-    . . c f 1 f f f f f f f f f f f f f f 1 f . . .
-    . . . c f 1 1 f f f f f f f f f f 1 1 f f . . .
-    . . . . c f 1 1 1 f f f f f f 1 1 1 f f . . . .
-    . . . . . c f 1 1 1 1 1 1 1 1 1 1 f f . . . . .
-    . . . . . . c f f f 1 1 1 1 f f f f . . . . . .
-    . . . . . . 2 c 2 2 2 2 2 2 2 2 2 2 . . . . . .
-    . . . . . f f f c 1 1 1 1 1 1 1 f f f . . . . .
-    . . . . . f 1 1 1 c f f f f f f f 1 f . . . . .
+    c . f f 1 f f f f f f f f f f f f f f 1 f . . .
+    . c . f f 1 1 f f f f f f f f f f 1 1 f f . . .
+    . . c . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
+    . . . c . f f 1 1 1 1 1 1 1 1 1 1 f f . . . . .
+    . . . . c . f f f f 1 1 1 1 f f f f . . . . . .
+    . . . . . c 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . .
+    . . . . . f c f 1 1 1 1 1 1 1 1 f f f . . . . .
+    . . . . . f 1 c f 1 f f f f f f f 1 f . . . . .
     . . . . . f 1 1 1 f f 1 1 1 1 1 1 1 f . . . . .
     . . . . . . f 1 1 f 1 f f f f f f f . . . . . .
     . . . . . . . f 1 f 1 1 1 1 1 1 f . . . . . . .
