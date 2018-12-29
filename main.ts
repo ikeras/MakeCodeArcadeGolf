@@ -40,7 +40,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
 });
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
-    if (ballInFlight && golfBallSprite.vx === 0 && golfBallSprite.vy === 0) {
+    if (ballInFlight && golfBallSprite.vx <= 0 && golfBallSprite.vy <= 0) {
         ballInFlight = false;
         golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
     }
