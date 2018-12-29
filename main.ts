@@ -6,7 +6,10 @@ enum SpriteKind {
 }
 
 let golfBallSprite: Sprite = null;
+
 const golfer = new Golfer();
+golfer.setPosition(12, 192);
+
 const powerMeter = new PowerMeter(32, 8, 15, 4);
 const directionIndicator = new DirectionIndicator(48, 2, 4);
 
@@ -15,22 +18,23 @@ let angle = 180;
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (powerMeter.isRunning) {
         directionIndicator.hide();
-        let power = powerMeter.stop();
+        let power = powerMeter.stop() * 2.4;
+        const radians = angle * Math.PI / 180;
+
+        golfer.swing(() => {
+            music.golfBallHit.play();
+            golfBallSprite.vx = -Math.cos(radians) * power;
+            golfBallSprite.vy = -Math.sin(radians) * power;
+            golfBallSprite.ay = 9.81;
+            golfBallSprite.ax = 0;
+        });
     } else {
         directionIndicator.rotate(angle);
         directionIndicator.show(13, 206);
-        powerMeter.start(16, 160);
+        powerMeter.start(16, golfer.top - 8);
     }
-    // golfer.swing(() => {
-    //     music.golfBallHit.play();
-    //     golfBallSprite.vx = 42;
-    //     golfBallSprite.vy = -50;
-    //     golfBallSprite.ay = 9.81;
-    //     golfBallSprite.ax = 0;
-    // });
+
 });
-
-
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
     if (powerMeter.isRunning && ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180))) {

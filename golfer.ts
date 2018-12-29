@@ -4,16 +4,16 @@ enum GolferOrientation {
 }
 
 class Golfer {
-    private golferLeftStandingFrame: Image = null;
-    private golferRightStandingFrame: Image = null;
-    private golferSprite: Sprite = null;
-    private golferSpriteAnimations: animation.SpriteAnimationGroup = null;
-    private golferSwingingLeftAnimationIndex: number = -1;
-    private golferSwingingRightAnimationIndex: number = -1;
+    private leftStandingFrame: Image = null;
+    private rightStandingFrame: Image = null;
+    private sprite: Sprite = null;
+    private spriteAnimations: animation.SpriteAnimationGroup = null;
+    private swingingLeftAnimationIndex: number = -1;
+    private swingingRightAnimationIndex: number = -1;
     private orientation: GolferOrientation = GolferOrientation.Right;
 
     constructor() {
-        const golferFrameRight1 = img`
+        const frameRight1 = img`
             . . . . . . . f f f f f f f f f f . . . . . . .
             . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
             . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
@@ -48,7 +48,7 @@ class Golfer {
             . . . . . . f 1 1 f c c . . f 1 1 f . . . . . .
             `;
 
-        const golferFrameRight2 = img`
+        const frameRight2 = img`
             . . . . . . . f f f f f f f f f f . . . . . . .
             . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
             . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
@@ -82,7 +82,7 @@ class Golfer {
             . . . . . . f f 1 f . . . . f 1 f f . . . . . .
             . . . . . . f 1 1 f . . . . f 1 1 f . . . . . .
             `
-        const golferFrameRight3 = img`
+        const frameRight3 = img`
             . . . . . . . f f f f f f f f f f . . . . . . .
             . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
             . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
@@ -116,7 +116,7 @@ class Golfer {
             . . . . . . f f 1 f . . . . f 1 f f . . . . . .
             . . . . . . f 1 1 f . . . . f 1 1 f . . . . . .
             `
-        const golferFrameRight4 = img`
+        const frameRight4 = img`
             . . . . . . . f f f f f f f f f f . . . . . . .
             . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
             . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
@@ -150,7 +150,7 @@ class Golfer {
             . . . . . . . f 1 f . . . . f 1 f f . . . . . .
             . . . . . . . f 1 f . . . . f 1 1 f . . . . . .
             `
-        const golferFrameRight5 = img`
+        const frameRight5 = img`
             . . . . . . . f f f f f f f f f f . . . . . . .
             . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
             . . . . f f 1 1 1 1 1 f f f f 1 1 1 f f . . . .
@@ -185,55 +185,91 @@ class Golfer {
             . . . . . . . f 1 f . . . . f 1 1 f . . . . . .
             `
 
-        const golferSwingingRight = new animation.Animation(250, false);
-        golferSwingingRight.addAnimationFrame(golferFrameRight1);
-        golferSwingingRight.addAnimationFrame(golferFrameRight2);
-        golferSwingingRight.addAnimationFrame(golferFrameRight3);
-        golferSwingingRight.addAnimationFrame(golferFrameRight2);
-        golferSwingingRight.addAnimationFrame(golferFrameRight1);
-        golferSwingingRight.addAnimationFrame(golferFrameRight4);
-        golferSwingingRight.addAnimationFrame(golferFrameRight5);
-        this.golferSpriteAnimations = new animation.SpriteAnimationGroup();
-        this.golferSwingingRightAnimationIndex = this.golferSpriteAnimations.addAnimation(golferSwingingRight);
+        const swingingRight = new animation.Animation(250, false);
+        swingingRight.addAnimationFrame(frameRight1);
+        swingingRight.addAnimationFrame(frameRight2);
+        swingingRight.addAnimationFrame(frameRight3);
+        swingingRight.addAnimationFrame(frameRight2);
+        swingingRight.addAnimationFrame(frameRight1);
+        swingingRight.addAnimationFrame(frameRight4);
+        swingingRight.addAnimationFrame(frameRight5);
+        this.spriteAnimations = new animation.SpriteAnimationGroup();
+        this.swingingRightAnimationIndex = this.spriteAnimations.addAnimation(swingingRight);
 
-        const golferFrameLeft1 = golferFrameRight1.clone();
-        const golferFrameLeft2 = golferFrameRight2.clone();
-        const golferFrameLeft3 = golferFrameRight3.clone();
-        const golferFrameLeft4 = golferFrameRight4.clone();
-        const golferFrameLeft5 = golferFrameRight5.clone();
-        golferFrameLeft1.flipX();
-        golferFrameLeft2.flipX();
-        golferFrameLeft3.flipX();
-        golferFrameLeft4.flipX();
-        golferFrameLeft5.flipX();
-        const golferSwingingLeft = new animation.Animation(250, false);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft1);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft2);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft3);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft2);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft1);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft4);
-        golferSwingingLeft.addAnimationFrame(golferFrameLeft5);
-        this.golferSwingingLeftAnimationIndex = this.golferSpriteAnimations.addAnimation(golferSwingingLeft);
+        const frameLeft1 = frameRight1.clone();
+        const frameLeft2 = frameRight2.clone();
+        const frameLeft3 = frameRight3.clone();
+        const frameLeft4 = frameRight4.clone();
+        const frameLeft5 = frameRight5.clone();
+        frameLeft1.flipX();
+        frameLeft2.flipX();
+        frameLeft3.flipX();
+        frameLeft4.flipX();
+        frameLeft5.flipX();
+        const swingingLeft = new animation.Animation(250, false);
+        swingingLeft.addAnimationFrame(frameLeft1);
+        swingingLeft.addAnimationFrame(frameLeft2);
+        swingingLeft.addAnimationFrame(frameLeft3);
+        swingingLeft.addAnimationFrame(frameLeft2);
+        swingingLeft.addAnimationFrame(frameLeft1);
+        swingingLeft.addAnimationFrame(frameLeft4);
+        swingingLeft.addAnimationFrame(frameLeft5);
+        this.swingingLeftAnimationIndex = this.spriteAnimations.addAnimation(swingingLeft);
 
-        this.golferLeftStandingFrame = golferFrameLeft1;
-        this.golferRightStandingFrame = golferFrameRight1;
+        this.leftStandingFrame = frameLeft1;
+        this.rightStandingFrame = frameRight1;
 
-        this.golferSprite = sprites.create(this.golferRightStandingFrame, SpriteKind.Player);
-        animation.attachAnimation(this.golferSprite, this.golferSpriteAnimations);
-        this.golferSprite.setPosition(12, 192);
+        this.sprite = sprites.create(this.rightStandingFrame, SpriteKind.Player);
+        animation.attachAnimation(this.sprite, this.spriteAnimations);
+        this.sprite.setPosition(12, 192);
+    }
+
+    public get bottom(): number {
+        return this.sprite.bottom;
+    }
+
+    public set bottom(value: number) {
+        this.sprite.bottom = value;
+    }
+
+    public get left(): number {
+        return this.sprite.left;
+    }
+
+    public set left(value: number) {
+        this.sprite.left = value;
+    }
+
+    public get right(): number {
+        return this.sprite.right;
+    }
+
+    public set right(value: number) {
+        this.sprite.right = value;
+    }
+
+    public get top(): number {
+        return this.sprite.top;
+    }
+
+    public set top(value: number) {
+        this.sprite.top = value;
     }
 
     public setOrientation(orientation: GolferOrientation) {
         if (orientation !== this.orientation) {
             this.orientation = orientation;
-            let standingImage: Image = orientation === GolferOrientation.Left ? this.golferLeftStandingFrame : this.golferRightStandingFrame;
-            this.golferSprite.setImage(standingImage);
+            let standingImage: Image = orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
+            this.sprite.setImage(standingImage);
         }
     }
 
+    public setPosition(x: number, y: number): void {
+        this.sprite.setPosition(x, y);
+    }
+
     public swing(hitBallCallback: () => void) {
-        const animationIndex = this.orientation === GolferOrientation.Left ? this.golferSwingingLeftAnimationIndex : this.golferSwingingRightAnimationIndex;
-        this.golferSpriteAnimations.setActiveAnimation(animationIndex, (frame) => frame === 4 && hitBallCallback());
+        const animationIndex = this.orientation === GolferOrientation.Left ? this.swingingLeftAnimationIndex : this.swingingRightAnimationIndex;
+        this.spriteAnimations.setActiveAnimation(animationIndex, (frame) => frame === 4 && hitBallCallback());
     }
 }
