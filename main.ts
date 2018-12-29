@@ -14,29 +14,36 @@ const powerMeter = new PowerMeter(32, 8, 15, 4);
 const directionIndicator = new DirectionIndicator(48, 2, 4);
 
 let angle = 180;
+let ballInFlight = false;
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-    if (powerMeter.isRunning) {
-        directionIndicator.hide();
-        let power = powerMeter.stop() * 2.4;
-        const radians = angle * Math.PI / 180;
+    if (!ballInFlight) {
+        if (powerMeter.isRunning) {
+            directionIndicator.hide();
+            let power = powerMeter.stop() * 2.4;
+            const radians = angle * Math.PI / 180;
 
-        golfer.swing(() => {
-            music.golfBallHit.play();
-            golfBallSprite.vx = -Math.cos(radians) * power;
-            golfBallSprite.vy = -Math.sin(radians) * power;
-            golfBallSprite.ay = 9.81;
-            golfBallSprite.ax = 0;
-        });
-    } else {
-        directionIndicator.rotate(angle);
-        directionIndicator.show(13, 206);
-        powerMeter.start(16, golfer.top - 8);
+            golfer.swing(() => {
+                ballInFlight = true;
+                music.golfBallHit.play();
+                golfBallSprite.vx = -Math.cos(radians) * power;
+                golfBallSprite.vy = -Math.sin(radians) * power;
+                golfBallSprite.ay = 9.81;
+                golfBallSprite.ax = 0;
+            });
+        } else {
+            directionIndicator.rotate(angle);
+            directionIndicator.show(golfBallSprite.x, golfBallSprite.y);
+            powerMeter.start(golfBallSprite.x + 3, golfer.top - 8);
+        }
     }
-
 });
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
+    if (ballInFlight && golfBallSprite.vx === 0 && golfBallSprite.vy === 0) {
+        ballInFlight = false;
+        golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+    }
     if (powerMeter.isRunning && ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180))) {
         controller.left.isPressed() ? angle-- : angle++;
         angle > 90 ? golfer.setOrientation(GolferOrientation.Right) : golfer.setOrientation(GolferOrientation.Left);
