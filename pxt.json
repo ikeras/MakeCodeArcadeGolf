@@ -9,7 +9,8 @@
         "main.ts",
         "README.md",
         "custom.ts",
-        "animation.ts"
+        "animation.ts",
+        "golfer.ts"
     ],
     "palette": [
         "#000000",
