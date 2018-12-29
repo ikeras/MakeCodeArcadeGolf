@@ -10,7 +10,8 @@
         "README.md",
         "custom.ts",
         "animation.ts",
-        "golfer.ts"
+        "golfer.ts",
+        "powermeter.ts"
     ],
     "palette": [
         "#000000",
