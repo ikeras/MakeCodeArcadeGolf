@@ -8,11 +8,17 @@ enum SpriteKind {
 let golfBallSprite: Sprite = null;
 const golfer = new Golfer();
 const powerMeter = new PowerMeter(32, 8, 15, 4);
+const directionIndicator = new DirectionIndicator(48, 2, 4);
+
+let angle = 180;
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (powerMeter.isRunning) {
+        directionIndicator.hide();
         let power = powerMeter.stop();
     } else {
+        directionIndicator.rotate(angle);
+        directionIndicator.show(13, 206);
         powerMeter.start(16, 160);
     }
     // golfer.swing(() => {
@@ -24,53 +30,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     // });
 });
 
-const targetingAideImageSize = 48;
-const targetingAideMidpoint = targetingAideImageSize / 2;
-const targetingAideSize = 2;
-const verticalTargetingAide = image.create(targetingAideImageSize, targetingAideImageSize);
-const targetingAideSprite = sprites.create(verticalTargetingAide);
-targetingAideSprite.z = 2;
-targetingAideSprite.setPosition(13, 206);
-
-let angle = 180;
-
-const targetingAidePoints = [
-    { x: -targetingAideMidpoint, y: 0 },
-    { x: -targetingAideMidpoint + targetingAideSize, y: targetingAideSize },
-    { x: -targetingAideMidpoint + targetingAideSize, y: -targetingAideSize }
-];
-
 
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
-
-
-    if ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180)) {
+    if (powerMeter.isRunning && ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180))) {
         controller.left.isPressed() ? angle-- : angle++;
         angle > 90 ? golfer.setOrientation(GolferOrientation.Right) : golfer.setOrientation(GolferOrientation.Left);
-        const radians = angle * Math.PI / 180;
-        let x, y;
-        const points = [];
-
-        for (let localPoint of targetingAidePoints) {
-            // rotate points
-            x = localPoint.x * Math.cos(radians) - localPoint.y * Math.sin(radians);
-            y = localPoint.y * Math.cos(radians) + localPoint.x * Math.sin(radians);
-
-            // translate into image coordinates
-            x += targetingAideMidpoint;
-            y += targetingAideMidpoint;
-
-            points.push({ x: x, y: y });
-        }
-
-        verticalTargetingAide.fill(0);
-
-        // Draw the 4 lines of the targeting aide
-        verticalTargetingAide.drawLine(targetingAideMidpoint, targetingAideMidpoint, points[1].x, points[1].y, 4);
-        verticalTargetingAide.drawLine(targetingAideMidpoint, targetingAideMidpoint, points[2].x, points[2].y, 4);
-        verticalTargetingAide.drawLine(points[1].x, points[1].y, points[0].x, points[0].y, 4);
-        verticalTargetingAide.drawLine(points[2].x, points[2].y, points[0].x, points[0].y, 4);
+        directionIndicator.rotate(angle);
     }
 });
 

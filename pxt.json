@@ -11,7 +11,8 @@
         "custom.ts",
         "animation.ts",
         "golfer.ts",
-        "powermeter.ts"
+        "powermeter.ts",
+        "directionindicator.ts"
     ],
     "palette": [
         "#000000",
