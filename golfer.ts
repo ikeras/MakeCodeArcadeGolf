@@ -259,13 +259,15 @@ class Golfer {
     public setOrientation(orientation: GolferOrientation) {
         if (orientation !== this.orientation) {
             this.orientation = orientation;
-            let standingImage: Image = orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
+            const standingImage: Image = orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
             this.sprite.setImage(standingImage);
         }
     }
 
     public setPosition(x: number, y: number): void {
         this.sprite.setPosition(x, y);
+        const standingImage: Image = this.orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
+        this.sprite.setImage(standingImage);
     }
 
     public swing(hitBallCallback: () => void) {
