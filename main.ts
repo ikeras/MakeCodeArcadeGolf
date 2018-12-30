@@ -13,7 +13,7 @@ const directionIndicator = new DirectionIndicator(48, 2, 4);
 let angle = 180;
 let ballInFlight = false;
 
-const layout = level.loadLevel(0);
+const layout = level.loadLevel(1);
 
 golfBallSprite = sprites.create(img`
     . f f .
