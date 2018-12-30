@@ -220,8 +220,8 @@ class Golfer {
         this.rightStandingFrame = frameRight1;
 
         this.sprite = sprites.create(this.rightStandingFrame, SpriteKind.Player);
+        this.sprite.setFlag(SpriteFlag.Ghost, true);
         animation.attachAnimation(this.sprite, this.spriteAnimations);
-        this.sprite.setPosition(12, 192);
     }
 
     public get bottom(): number {
@@ -266,6 +266,7 @@ class Golfer {
 
     public setPosition(x: number, y: number): void {
         this.sprite.setPosition(x, y);
+        this.spriteAnimations.stopActiveAnimation();
         const standingImage: Image = this.orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
         this.sprite.setImage(standingImage);
     }

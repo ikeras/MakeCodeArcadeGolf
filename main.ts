@@ -12,6 +12,7 @@ const directionIndicator = new DirectionIndicator(48, 2, 4);
 
 let angle = 180;
 let ballInFlight = false;
+let swingStarted = false;
 
 const layout = level.loadLevel(1);
 
@@ -31,13 +32,16 @@ const golfer = new Golfer();
 golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-    if (!ballInFlight) {
+    if (!ballInFlight && !swingStarted) {
         if (powerMeter.isRunning) {
             directionIndicator.hide();
             let power = powerMeter.stop() * 2.4;
             const radians = angle * Math.PI / 180;
 
+            swingStarted = true;
+
             golfer.swing(() => {
+                swingStarted = false;
                 ballInFlight = true;
                 music.golfBallHit.play();
                 golfBallSprite.vx = -Math.cos(radians) * power;

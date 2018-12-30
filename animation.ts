@@ -49,6 +49,10 @@ namespace animation {
             this.activeAnimation.reset(frameChangeCallback);
         }
 
+        public stopActiveAnimation(): void {
+            this.activeAnimationIndex = -1;
+        }
+
         public update(): void {
             if (this.activeAnimationIndex < 0) {
                 return;
@@ -93,13 +97,6 @@ namespace animation {
             this.loop = loop;
         }
 
-        /**
-         * Add an image frame to an animation
-         */
-        public addAnimationFrame(frame: Image): void {
-            this.frames.push(frame);
-        }
-
         public get image(): Image {
             return this.frames[this._index];
         }
@@ -114,6 +111,13 @@ namespace animation {
 
         public get index(): number {
             return this._index;
+        }
+
+        /**
+         * Add an image frame to an animation
+        */
+        public addAnimationFrame(frame: Image): void {
+            this.frames.push(frame);
         }
 
         public reset(frameChangeCallback: (frame: number) => void = null): void {
