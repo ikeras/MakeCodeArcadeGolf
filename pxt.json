@@ -12,7 +12,8 @@
         "animation.ts",
         "golfer.ts",
         "powermeter.ts",
-        "directionindicator.ts"
+        "directionindicator.ts",
+        "level.ts"
     ],
     "palette": [
         "#000000",
