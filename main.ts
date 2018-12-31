@@ -16,6 +16,9 @@ enum SpriteKind {
     Enemy
 }
 
+// The number of frames the ball must remain still before moving the golfer
+const QUIESCENT_FRAMES_BEFORE_MOVE = 5;
+
 let golfBallSprite: Sprite = null;
 
 const powerMeter = new PowerMeter(32, 8, 15, 4);
@@ -24,6 +27,7 @@ const directionIndicator = new DirectionIndicator(48, 2, 4);
 let angle = 180;
 let ballInFlight = false;
 let swingStarted = false;
+let quiescentFrames = 0;
 
 const layout = level.loadLevel(1);
 
@@ -73,11 +77,20 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
 });
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
-    if (ballInFlight && Math.abs(golfBallSprite.vx) < 1 && Math.abs(golfBallSprite.vy) < 1) {
-        golfBallSprite.vx = 0;
-        golfBallSprite.vy = 0;
-        ballInFlight = false;
-        golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+    if (ballInFlight) {
+        if (Math.abs(golfBallSprite.vx) < 1 && Math.abs(golfBallSprite.vy) < 1) {
+            quiescentFrames++;
+        } else {
+            quiescentFrames = 0;
+        }
+
+        if (quiescentFrames === QUIESCENT_FRAMES_BEFORE_MOVE) {
+            quiescentFrames = 0;
+            golfBallSprite.vx = 0;
+            golfBallSprite.vy = 0;
+            ballInFlight = false;
+            golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+        }
     }
     if (powerMeter.isRunning && ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180))) {
         controller.left.isPressed() ? angle-- : angle++;
