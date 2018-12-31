@@ -1,3 +1,14 @@
+// A little bit of a hack as we want things to move faster than they would based on the default
+// time slices of the ArcadePhysicsEngine, so we override and set it to the max time slice it supports
+class GolfPhysicsEngine extends ArcadePhysicsEngine {
+    move(dt: number) {
+        super.move(0.1);
+    }
+}
+
+const physicsEngine = new GolfPhysicsEngine();
+game.currentScene().physicsEngine = physicsEngine;
+
 enum SpriteKind {
     Player,
     Projectile,
