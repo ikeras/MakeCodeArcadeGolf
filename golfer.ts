@@ -185,7 +185,7 @@ class Golfer {
             . . . . . . . f 1 f . . . . f 1 1 f . . . . . .
             `
 
-        const swingingRight = new animation.Animation(250, false);
+        const swingingRight = new animation.Animation(100, false);
         swingingRight.addAnimationFrame(frameRight1);
         swingingRight.addAnimationFrame(frameRight2);
         swingingRight.addAnimationFrame(frameRight3);
@@ -206,7 +206,7 @@ class Golfer {
         frameLeft3.flipX();
         frameLeft4.flipX();
         frameLeft5.flipX();
-        const swingingLeft = new animation.Animation(250, false);
+        const swingingLeft = new animation.Animation(100, false);
         swingingLeft.addAnimationFrame(frameLeft1);
         swingingLeft.addAnimationFrame(frameLeft2);
         swingingLeft.addAnimationFrame(frameLeft3);
