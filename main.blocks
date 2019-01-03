@@ -1,12 +1,12 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <variables>
-    <variable id="Y)::GLaXb8uSh*J,Vd(u" type="SpriteKind">0Player</variable>
-    <variable id="d!ATuc,(c59o7CTrFumu" type="SpriteKind">1Projectile</variable>
-    <variable id="xmemxh%?e|@H^D;a1GwQ" type="SpriteKind">2Food</variable>
-    <variable id="6Hi?*XB]X5b/gm5g3]2t" type="SpriteKind">3Enemy</variable>
-    <variable id="4%Ph`%sm;aDo!ig;]`Mr" type="">golfBallSprite</variable>
+    <variable id="*u?x.=si4-o1b~F3-^9Q" type="SpriteKind">0Player</variable>
+    <variable id="z[i.f*s4Q;#@DxT;K^t^" type="SpriteKind">1Projectile</variable>
+    <variable id="#Id-Ucr)t1Q;M,@~`UMY" type="SpriteKind">2Food</variable>
+    <variable id="(V)z5:ea*g%7;?asgv:A" type="SpriteKind">3Enemy</variable>
+    <variable id="t~(S0aTIGk/ZlXFCZ@e?" type="">golfBallSprite</variable>
   </variables>
-  <block type="pxt-on-start" x="20" y="20">
+  <block type="pxt-on-start" x="0" y="0">
     <statement name="HANDLER">
       <block type="typescript_statement" editable="false">
         <mutation numlines="1" line0="let mySprite = 0" declaredvars="mySprite"></mutation>
@@ -148,7 +148,7 @@ f 1 1 1 f 1 1 1 1 f 1 1 1 f . .
                                 </value>
                                 <next>
                                   <block type="variables_set">
-                                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                    <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                                     <value name="VALUE">
                                       <shadow type="math_number">
                                         <field name="NUM">0</field>
@@ -176,7 +176,7 @@ f f f f
                                       <block type="spritesetpos">
                                         <value name="sprite">
                                           <block type="variables_get">
-                                            <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                            <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                                           </block>
                                         </value>
                                         <value name="x">
@@ -194,7 +194,7 @@ f f f f
                                             <field name="flag">SpriteFlag.BounceOnWall</field>
                                             <value name="sprite">
                                               <block type="variables_get">
-                                                <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                                <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                                               </block>
                                             </value>
                                             <value name="on">
@@ -206,7 +206,7 @@ f f f f
                                               <block type="camerafollow">
                                                 <value name="sprite">
                                                   <shadow type="variables_get">
-                                                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                                                    <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                                                   </shadow>
                                                 </value>
                                               </block>
@@ -232,70 +232,64 @@ f f f f
       </block>
     </statement>
   </block>
-  <block type="keyonevent" x="686" y="20">
+  <block type="keyonevent" x="666" y="0">
     <field name="button">controller.A</field>
     <field name="event">ControllerButtonEvent.Pressed</field>
     <statement name="HANDLER">
       <block type="mixer_play_sound_until_done">
         <field name="sound">music.golfBallHit</field>
         <next>
-          <block type="typescript_statement" editable="false">
-            <mutation numlines="1" line0="music.golfBallLand.playUntilDone()"></mutation>
-            <field name="LINE0">music.golfBallLand.playUntilDone()</field>
+          <block type="Sprite_blockCombine_set">
+            <field name="property">Sprite.vx@set</field>
+            <value name="mySprite">
+              <block type="variables_get">
+                <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
+              </block>
+            </value>
+            <value name="value">
+              <shadow type="math_number">
+                <field name="NUM">45</field>
+              </shadow>
+            </value>
             <next>
               <block type="Sprite_blockCombine_set">
-                <field name="property">Sprite.vx@set</field>
+                <field name="property">Sprite.vy@set</field>
                 <value name="mySprite">
                   <block type="variables_get">
-                    <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                    <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                   </block>
                 </value>
                 <value name="value">
                   <shadow type="math_number">
-                    <field name="NUM">45</field>
+                    <field name="NUM">-50</field>
                   </shadow>
                 </value>
                 <next>
                   <block type="Sprite_blockCombine_set">
-                    <field name="property">Sprite.vy@set</field>
+                    <field name="property">Sprite.ay@set</field>
                     <value name="mySprite">
                       <block type="variables_get">
-                        <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                        <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                       </block>
                     </value>
                     <value name="value">
                       <shadow type="math_number">
-                        <field name="NUM">-50</field>
+                        <field name="NUM">9.81</field>
                       </shadow>
                     </value>
                     <next>
                       <block type="Sprite_blockCombine_set">
-                        <field name="property">Sprite.ay@set</field>
+                        <field name="property">Sprite.ax@set</field>
                         <value name="mySprite">
                           <block type="variables_get">
-                            <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
+                            <field id="t~(S0aTIGk/ZlXFCZ@e?" name="VAR" variabletype="">golfBallSprite</field>
                           </block>
                         </value>
                         <value name="value">
                           <shadow type="math_number">
-                            <field name="NUM">9.81</field>
+                            <field name="NUM">2</field>
                           </shadow>
                         </value>
-                        <next>
-                          <block type="Sprite_blockCombine_set">
-                            <field name="property">Sprite.ax@set</field>
-                            <value name="mySprite">
-                              <block type="variables_get">
-                                <field id="4%Ph`%sm;aDo!ig;]`Mr" name="VAR" variabletype="">golfBallSprite</field>
-                              </block>
-                            </value>
-                            <value name="value">
-                              <shadow type="math_number">
-                                <field name="NUM">2</field>
-                              </shadow>
-                            </value>
-                          </block>
-                        </next>
                       </block>
                     </next>
                   </block>
