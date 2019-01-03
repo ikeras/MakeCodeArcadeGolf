@@ -53,12 +53,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             let power = powerMeter.stop() * 2.4;
             const radians = angle * Math.PI / 180;
 
+            music.golferSwing.play()
             swingStarted = true;
 
             golfer.swing(() => {
                 swingStarted = false;
                 ballInFlight = true;
-                music.golfBallHit.play();
+                golfer.say("fore!", 900)
                 golfBallSprite.vx = -Math.cos(radians) * power;
                 golfBallSprite.vy = -Math.sin(radians) * power;
                 golfBallSprite.ay = 9.81;
@@ -92,8 +93,15 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
             golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
         }
     }
-    if (powerMeter.isRunning && ((controller.left.isPressed() && angle >= 0) || (controller.right.isPressed() && angle <= 180))) {
-        controller.left.isPressed() ? angle-- : angle++;
+    if (powerMeter.isRunning && ((controller.up.isPressed() && angle >= 0) || (controller.down.isPressed() && angle <= 180))) {
+        if (controller.up.isPressed()) {
+            angle--
+            music.angleUp.play()
+        }
+        else {
+            angle++
+            music.angleDown.play()
+        }
         angle > 90 ? golfer.setOrientation(GolferOrientation.Right) : golfer.setOrientation(GolferOrientation.Left);
         directionIndicator.rotate(angle);
     }

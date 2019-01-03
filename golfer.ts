@@ -275,4 +275,8 @@ class Golfer {
         const animationIndex = this.orientation === GolferOrientation.Left ? this.swingingLeftAnimationIndex : this.swingingRightAnimationIndex;
         this.spriteAnimations.setActiveAnimation(animationIndex, (frame) => frame === 4 && hitBallCallback());
     }
+
+    public say(text: string, timeOnScreen: number): void {
+        this.sprite.say(text, timeOnScreen)
+    }
 }
