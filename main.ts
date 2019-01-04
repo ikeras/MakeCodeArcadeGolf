@@ -93,17 +93,40 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
             golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
         }
     }
-    if (powerMeter.isRunning && ((controller.up.isPressed() && angle >= 0) || (controller.down.isPressed() && angle <= 180))) {
-        if (controller.up.isPressed()) {
-            angle--
-            music.angleUp.play()
+    if (powerMeter.isRunning) {
+        if (golfer.getOrientation() == GolferOrientation.Right && controller.left.isPressed()) {
+            golfer.setOrientation(GolferOrientation.Left);
+            angle = 180 - angle;
+            directionIndicator.rotate(angle);
         }
-        else {
-            angle++
-            music.angleDown.play()
+        if (golfer.getOrientation() == GolferOrientation.Left && controller.right.isPressed()) {
+            golfer.setOrientation(GolferOrientation.Right);
+            angle = 180 - angle;
+            directionIndicator.rotate(angle);
         }
-        angle > 90 ? golfer.setOrientation(GolferOrientation.Right) : golfer.setOrientation(GolferOrientation.Left);
-        directionIndicator.rotate(angle);
+        if (golfer.getOrientation() == GolferOrientation.Right && (controller.up.isPressed() && angle >= 90) || (controller.down.isPressed() && angle <= 180)) {
+            if (controller.up.isPressed()) {
+                angle--
+                music.angleUp.play()
+            }
+            else {
+                angle++
+                music.angleDown.play()
+            }
+            directionIndicator.rotate(angle);
+        }
+        if (golfer.getOrientation() == GolferOrientation.Left && (controller.down.isPressed() && angle >= 0) || (controller.up.isPressed() && angle <= 90)) {
+            if (controller.down.isPressed()) {
+                angle--
+                music.angleDown.play()
+            }
+            else {
+                angle++
+                music.angleUp.play()
+            }
+            directionIndicator.rotate(angle);
+        }
+
     }
 });
 

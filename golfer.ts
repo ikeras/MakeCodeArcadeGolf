@@ -264,6 +264,10 @@ class Golfer {
         }
     }
 
+    public getOrientation(): GolferOrientation {
+        return this.orientation;
+    }
+
     public setPosition(x: number, y: number): void {
         this.sprite.setPosition(x, y);
         this.spriteAnimations.stopActiveAnimation();
