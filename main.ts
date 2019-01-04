@@ -94,39 +94,29 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
         }
     }
     if (powerMeter.isRunning) {
-        if (golfer.getOrientation() == GolferOrientation.Right && controller.left.isPressed()) {
-            golfer.setOrientation(GolferOrientation.Left);
-            angle = 180 - angle;
-            directionIndicator.rotate(angle);
-        }
-        if (golfer.getOrientation() == GolferOrientation.Left && controller.right.isPressed()) {
-            golfer.setOrientation(GolferOrientation.Right);
-            angle = 180 - angle;
-            directionIndicator.rotate(angle);
-        }
-        if (golfer.getOrientation() == GolferOrientation.Right && (controller.up.isPressed() && angle >= 90) || (controller.down.isPressed() && angle <= 180)) {
-            if (controller.up.isPressed()) {
-                angle--
-                music.angleUp.play()
+        if (controller.left.isPressed() || controller.right.isPressed()) {
+            const targetOrientation = controller.left.isPressed() ? GolferOrientation.Left : GolferOrientation.Right;
+
+            if (golfer.orientation !== targetOrientation) {
+                golfer.orientation = targetOrientation;
+                angle = 180 - angle;
+                directionIndicator.rotate(angle);
             }
-            else {
-                angle++
-                music.angleDown.play()
-            }
-            directionIndicator.rotate(angle);
-        }
-        if (golfer.getOrientation() == GolferOrientation.Left && (controller.down.isPressed() && angle >= 0) || (controller.up.isPressed() && angle <= 90)) {
-            if (controller.down.isPressed()) {
-                angle--
-                music.angleDown.play()
-            }
-            else {
-                angle++
-                music.angleUp.play()
-            }
-            directionIndicator.rotate(angle);
         }
 
+        if (controller.up.isPressed() || controller.down.isPressed()) {
+            const extents = golfer.orientation === GolferOrientation.Right ? { bottom: 180, top: 90, increment: -1 } : { bottom: 0, top: 90, increment: 1 };
+
+            if (controller.up.isPressed() && angle !== extents.top) {
+                angle += extents.increment;
+                music.angleUp.play();
+            } else if (controller.down.isPressed() && angle !== extents.bottom) {
+                angle -= extents.increment;
+                music.angleDown.play();
+            }
+
+            directionIndicator.rotate(angle);
+        }
     }
 });
 

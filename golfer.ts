@@ -10,7 +10,9 @@ class Golfer {
     private spriteAnimations: animation.SpriteAnimationGroup = null;
     private swingingLeftAnimationIndex: number = -1;
     private swingingRightAnimationIndex: number = -1;
-    private orientation: GolferOrientation = GolferOrientation.Right;
+    
+    // Backing fields for properties
+    private _orientation: GolferOrientation = GolferOrientation.Right;
 
     constructor() {
         const frameRight1 = img`
@@ -256,16 +258,16 @@ class Golfer {
         this.sprite.top = value;
     }
 
-    public setOrientation(orientation: GolferOrientation) {
-        if (orientation !== this.orientation) {
-            this.orientation = orientation;
-            const standingImage: Image = orientation === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
-            this.sprite.setImage(standingImage);
-        }
+    public get orientation() {
+        return this._orientation;
     }
 
-    public getOrientation(): GolferOrientation {
-        return this.orientation;
+    public set orientation(value: GolferOrientation) {
+        if (value !== this._orientation) {
+            this._orientation = value;
+            const standingImage: Image = value === GolferOrientation.Left ? this.leftStandingFrame : this.rightStandingFrame;
+            this.sprite.setImage(standingImage);
+        }        
     }
 
     public setPosition(x: number, y: number): void {
