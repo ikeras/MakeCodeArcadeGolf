@@ -41,10 +41,13 @@ golfBallSprite = sprites.create(img`
 const startingPosition = layout.getStartingBallPosition();
 golfBallSprite.setPosition(startingPosition.x, startingPosition.y);
 golfBallSprite.z = 1;
+golfBallSprite.setKind(10);
 scene.cameraFollowSprite(golfBallSprite);
 
 const golfer = new Golfer();
 golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+
+info.setScore(0);
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (!ballInFlight && !swingStarted) {
@@ -53,7 +56,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             let power = powerMeter.stop() * 2.4;
             const radians = angle * Math.PI / 180;
 
-            music.golferSwing.play()
+            music.golferSwing.play();
+            info.changeScoreBy(1);
             swingStarted = true;
 
             golfer.swing(() => {
