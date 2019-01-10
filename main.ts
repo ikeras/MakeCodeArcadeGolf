@@ -13,8 +13,13 @@ enum SpriteKind {
     Player,
     Projectile,
     Food,
-    Enemy
+    Goal,
 }
+
+let gameState = 1;
+let angle = 180;
+
+scene.setBackgroundImage(customImages.titleScreen)
 
 // The number of frames the ball must remain still before moving the golfer
 const QUIESCENT_FRAMES_BEFORE_MOVE = 5;
@@ -24,33 +29,41 @@ let golfBallSprite: Sprite = null;
 const powerMeter = new PowerMeter(32, 8, 15, 4);
 const directionIndicator = new DirectionIndicator(48, 2, 4);
 
-let angle = 180;
 let ballInFlight = false;
 let swingStarted = false;
 let quiescentFrames = 0;
 
-const layout = level.loadLevel(1);
-
-golfBallSprite = sprites.create(img`
-    . f f .
-    f f f f
-    f f f f
-    . f f .
-    `, SpriteKind.Projectile)
-
-const startingPosition = layout.getStartingBallPosition();
-golfBallSprite.setPosition(startingPosition.x, startingPosition.y);
-golfBallSprite.z = 1;
-golfBallSprite.setKind(10);
-scene.cameraFollowSprite(golfBallSprite);
-
+let layout = level.loadLevel(0);
 const golfer = new Golfer();
-golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
-
-info.setScore(0);
+golfer.setPosition(400, 100);
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-    if (!ballInFlight && !swingStarted) {
+    if (gameState == 1) {
+        music.playSoundUntilDone("~3 C6:0");
+        scene.setBackgroundImage(customImages.instructions);
+        gameState = 2;
+    }
+    else if (gameState == 2) {
+        music.playSoundUntilDone("~3 C6:0");
+        layout = level.loadLevel(2);
+        info.setScore(0);
+
+        golfBallSprite = sprites.create(img`
+            . f .
+            f f f
+            . f .
+            `, SpriteKind.Projectile)
+
+        let startingPosition = layout.getStartingBallPosition();
+        golfBallSprite.setPosition(startingPosition.x, startingPosition.y);
+        golfBallSprite.z = 1;
+        scene.cameraFollowSprite(golfBallSprite);
+
+        golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+
+        gameState = 3;
+    }
+    if (gameState == 3 && !ballInFlight && !swingStarted) {
         if (powerMeter.isRunning) {
             directionIndicator.hide();
             let power = powerMeter.stop() * 2.4;
@@ -78,7 +91,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
 });
 
 controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
-    level.showMap(golfBallSprite.x, golfBallSprite.y, layout);
+    if (gameState == 3) {
+        level.showMap(golfBallSprite.x, golfBallSprite.y, layout);
+    }
 });
 
 game.currentScene().eventContext.registerFrameHandler(19, () => {
@@ -122,6 +137,28 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
             directionIndicator.rotate(angle);
         }
     }
+});
+
+scene.onHitTile(SpriteKind.Projectile, 3, (sprite: Sprite) => {
+    music.magicWand.playUntilDone();
+    let top = (screen.height - 44) >> 1;
+    screen.fillRect(0, top, screen.width, 46, 0)
+    screen.drawLine(0, top, screen.width, top, 1)
+    screen.drawLine(0, top + 46, screen.width, top + 46, 1)
+
+    screen.printCenter("YOU WIN!", top + 8, screen.isMono ? 1 : 5, image.font8)
+    if (info.hasScore()) {
+        screen.printCenter("Score:" + info.score(), top + 23, screen.isMono ? 1 : 2, image.font8)
+        if (info.score() < info.highScore()) {
+            info.saveHighScore();
+            screen.printCenter("New Best Score!", top + 34, screen.isMono ? 1 : 2, image.font5);
+        } else {
+            screen.printCenter("Best: " + info.highScore(), top + 34, screen.isMono ? 1 : 2, image.font8);
+        }
+    }
+    pause(2000) // wait for users to stop pressing keys
+    game.waitAnyButton()
+    game.reset()
 });
 
 // coefficient of restituion for grass
