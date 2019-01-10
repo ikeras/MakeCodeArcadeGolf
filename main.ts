@@ -35,7 +35,6 @@ let quiescentFrames = 0;
 
 let layout = level.loadLevel(0);
 const golfer = new Golfer();
-golfer.setPosition(400, 100);
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (gameState == 1) {
@@ -55,7 +54,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             `, SpriteKind.Projectile)
 
         let startingPosition = layout.getStartingBallPosition();
-        golfBallSprite.setPosition(startingPosition.x, startingPosition.y);
+        golfBallSprite.setPosition(0, 0);
         golfBallSprite.z = 1;
         scene.cameraFollowSprite(golfBallSprite);
 
