@@ -35,7 +35,7 @@ let quiescentFrames = 0;
 
 let layout = level.loadLevel(0);
 const golfer = new Golfer();
-golfer.setPosition(190, 190)
+golfer.setPosition(190, 190);
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (gameState == 1) {
