@@ -99,7 +99,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
 });
 
 function waitForInput(resetGame: boolean): void {
-    pause(2000); // wait for users to stop pressing keys
+    pause(500); // wait for users to stop pressing keys
     game.waitAnyButton();
     resetGame && game.reset();
 }
