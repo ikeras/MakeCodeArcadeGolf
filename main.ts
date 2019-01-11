@@ -58,8 +58,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             `, SpriteKind.Projectile)
 
         let startingPosition = layout.getStartingBallPosition();
-        //golfBallSprite.setPosition(startingPosition.x, startingPosition.y)
-        golfBallSprite.setPosition(16, 50);
+        golfBallSprite.setPosition(startingPosition.x, startingPosition.y)
         golfBallSprite.z = 1;
         scene.cameraFollowSprite(golfBallSprite);
 
