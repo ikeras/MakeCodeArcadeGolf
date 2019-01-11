@@ -325,5 +325,5 @@ namespace level {
         return null;
     }
 
-    export const MAX_LEVEL = 2;
+    export const MAX_LEVEL = 3;
 }
