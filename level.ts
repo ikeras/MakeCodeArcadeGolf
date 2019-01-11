@@ -43,7 +43,7 @@ namespace level {
         const offsetX = (scene.screenWidth() - layout.width * scale) / 2;
         const offsetY = (scene.screenHeight() - layout.height * scale) / 2;
 
-        map.fillRect(offsetX, offsetY, layout.width * scale, layout.height * scale, 9);
+        map.fillRect(offsetX, offsetY, layout.width * scale, layout.height * scale, 14);
 
         for (let mapTile of layout.mapTilesToRender) {
             const tiles = scene.getTilesByType(mapTile.type);
@@ -264,9 +264,9 @@ namespace level {
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8
-            . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8 8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8
+            . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8
             . . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 8 8 8 8 . . . . . . . . . . . . . . . . . . . . . . . . . 8 8 . 8 8 8 8
-            . . . . . 8 8 8 . . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 . . . . . 8 8 8 8 8 . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+            . . . . . 8 8 8 . . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 . . . . 8 8 8 8 8 . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
             . . . . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 . . . . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
             8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
             `)
@@ -301,7 +301,6 @@ namespace level {
             { type: 13, color: 10 },
             { type: 14, color: 10 },
             { type: 15, color: 10 },
-            { type: 0, color: 5 }
         ];
 
         return layout;
