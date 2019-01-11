@@ -119,38 +119,38 @@ class Golfer {
             . . . . . . c 1 1 c . . . . c 1 1 c . . . . . .
             `
         const frameRight4 = img`
-            . . . . . . . f f f f f f f f f f . . . . . . .
-            . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
-            . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
-            . . . f f 1 1 1 f f f 1 f f f f f 1 1 f f . . .
-            . . . f 1 1 1 1 f f 1 1 f f f f f f 1 1 f . . .
-            . . f f 1 1 1 1 f 1 1 f f f f f f f f 1 f f . .
-            . . f 1 1 1 1 1 f f f f f f f f f f f f 1 f . .
-            . . f 1 1 1 1 1 f f f f f f f f f f f f 1 f . .
-            . . f 1 1 1 1 1 f f f f f f f f f f f f 1 f . .
-            . . f 1 1 1 1 1 f f f f f f f f f f f f 1 f . .
-            . . f f 1 1 1 1 f f f f f f f f f f f f 1 f . .
-            . . . f 1 1 1 1 f f f f f f f f f f f 1 f . . .
-            . . . f f 1 1 1 f f f f f f f f f 1 1 f f . . .
-            . . . . f f 1 1 1 f f f f f f 1 1 1 f f . . . .
-            . . . . . f f 1 1 1 1 1 1 1 1 1 1 f f . . . . .
-            . . . . . . f f f f 1 1 1 1 f f f f . . . . . .
-            . . . . . . 2 2 2 2 2 2 2 2 2 2 f f f . . . . .
-            . . . . . f f f 1 1 1 1 1 1 1 1 f f f . . . . .
-            . . . . . f 1 1 f 1 1 1 1 1 1 1 f 1 f . . . . .
-            . . . . . f f 1 1 f 1 1 1 1 1 f 1 1 f . . . . .
-            . . . . . . f f 1 1 f 1 1 1 f 1 1 f . . . . . .
-            . . . . . . . f f 1 1 f 1 f 1 1 f . . . . . . .
-            . . . . . . . f 1 f 1 1 f 1 1 f f . . . . . . c
-            . . . . . . . f 1 1 f f f f f c c c c c c c c c
-            . . . . . . . f f f f f f f f f f . . . . . . .
-            . . . . . . . f 1 f f 1 1 1 1 1 f . . . . . . .
-            . . . . . . . f 1 1 1 f f 1 1 1 f . . . . . . .
-            . . . . . . . f 1 1 1 f f 1 1 1 f . . . . . . .
-            . . . . . . . f 1 1 f . . f 1 1 f . . . . . . .
-            . . . . . . . f 1 1 f . . f 1 1 f . . . . . . .
-            . . . . . . . f 1 f . . . . f 1 f f . . . . . .
-            . . . . . . . f 1 f . . . . f 1 1 f . . . . . .
+            . . . . . . . c c c c c c c c c c . . . . . . .
+            . . . . . c c c 1 1 1 1 1 1 1 1 c c c . . . . .
+            . . . . c c 1 1 1 c c c c c c 1 1 1 c c . . . .
+            . . . c c 1 1 1 c c c 1 c c c c c 1 1 c c . . .
+            . . . c 1 1 1 1 c c 1 1 c c c c c c 1 1 c . . .
+            . . c c 1 1 1 1 c 1 1 c c c c c c c c 1 c c . .
+            . . c 1 1 1 1 1 c c c c c c c c c c c c 1 c . .
+            . . c 1 1 1 1 1 c c c c c c c c c c c c 1 c . .
+            . . c 1 1 1 1 1 c c c c c c c c c c c c 1 c . .
+            . . c 1 1 1 1 1 c c c c c c c c c c c c 1 c . .
+            . . c c 1 1 1 1 c c c c c c c c c c c c 1 c . .
+            . . . c 1 1 1 1 c c c c c c c c c c c 1 c . . .
+            . . . c c 1 1 1 c c c c c c c c c 1 1 c c . . .
+            . . . . c c 1 1 1 c c c c c c 1 1 1 c c . . . .
+            . . . . . c c 1 1 1 1 1 1 1 1 1 1 c c . . . . .
+            . . . . . . c c c c 1 1 1 1 c c c c . . . . . .
+            . . . . . . 2 2 2 2 2 2 2 2 2 2 c c c . . . . .
+            . . . . . c c c 1 1 1 1 1 1 1 1 c c c . . . . .
+            . . . . . c 1 1 c 1 1 1 1 1 1 1 c 1 c . . . . .
+            . . . . . c c 1 1 c 1 1 1 1 1 c 1 1 c . . . . .
+            . . . . . . c c 1 1 c 1 1 1 c 1 1 c . . . . . .
+            . . . . . . . c c 1 1 c 1 c 1 1 c . . . . . . .
+            . . . . . . . c 1 c 1 1 c 1 1 c c . . . . . . f
+            . . . . . . . c 1 1 c c f f f f f f f f f f f f
+            . . . . . . . c c c c c c c c c c . . . . . . .
+            . . . . . . . c 1 c c 1 1 1 1 1 c . . . . . . .
+            . . . . . . . c 1 1 1 c c 1 1 1 c . . . . . . .
+            . . . . . . . c 1 1 1 c c 1 1 1 c . . . . . . .
+            . . . . . . . c 1 1 c . . c 1 1 c . . . . . . .
+            . . . . . . . c 1 1 c . . c 1 1 c . . . . . . .
+            . . . . . . . c 1 c . . . . c 1 c c . . . . . .
+            . . . . . . . c 1 c . . . . c 1 1 c . . . . . .
             `
         const frameRight5 = img`
             . . . . . . . c c c c c c c c c c . . . . . . .

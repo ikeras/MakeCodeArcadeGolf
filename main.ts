@@ -19,6 +19,7 @@ enum SpriteKind {
 let gameState = 1;
 let angle = 180;
 
+image.setPalette(customPalettes.titlePalette)
 scene.setBackgroundImage(customImages.titleScreen)
 
 // The number of frames the ball must remain still before moving the golfer
@@ -40,6 +41,7 @@ golfer.setPosition(190, 190);
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     if (gameState == 1) {
         music.playSoundUntilDone("~3 C6:0");
+        image.setPalette(customPalettes.inGamePalette)
         scene.setBackgroundImage(customImages.instructions);
         gameState = 2;
     }
@@ -56,7 +58,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             `, SpriteKind.Projectile)
 
         let startingPosition = layout.getStartingBallPosition();
-        golfBallSprite.setPosition(16, 50);
+        golfBallSprite.setPosition(startingPosition.x, startingPosition.y)
+        //golfBallSprite.setPosition(16, 50);
         golfBallSprite.z = 1;
         scene.cameraFollowSprite(golfBallSprite);
 
@@ -164,7 +167,7 @@ scene.onHitTile(SpriteKind.Projectile, 3, (sprite: Sprite) => {
 // coefficient of restituion for grass
 const grassSurfaceCOR = 0.5;
 
-scene.onHitTile(SpriteKind.Projectile, 7, (sprite: Sprite) => {
+function collision(sprite: Sprite) {
     sprite.vx *= grassSurfaceCOR;
     sprite.vy *= grassSurfaceCOR;
 
@@ -175,4 +178,29 @@ scene.onHitTile(SpriteKind.Projectile, 7, (sprite: Sprite) => {
     if (sprite.isHittingTile(CollisionDirection.Top) || sprite.isHittingTile(CollisionDirection.Bottom)) {
         sprite.vy = -sprite.vy;
     }
+}
+
+scene.onHitTile(SpriteKind.Projectile, 8, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 9, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 10, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 11, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 12, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 13, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 14, (sprite: Sprite) => {
+    collision(sprite)
+});
+scene.onHitTile(SpriteKind.Projectile, 15, (sprite: Sprite) => {
+    collision(sprite)
 });
