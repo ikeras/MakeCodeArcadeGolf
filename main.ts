@@ -16,11 +16,8 @@ enum SpriteKind {
     Goal,
 }
 
-let gameState = 1;
+let levelInProgress = false;
 let angle = 180;
-
-image.setPalette(customPalettes.titlePalette)
-scene.setBackgroundImage(customImages.titleScreen)
 
 // The number of frames the ball must remain still before moving the golfer
 const QUIESCENT_FRAMES_BEFORE_MOVE = 5;
@@ -33,40 +30,48 @@ const directionIndicator = new DirectionIndicator(48, 2, 4);
 let ballInFlight = false;
 let swingStarted = false;
 let quiescentFrames = 0;
+let loadedLevel = 1;
 
 let layout = level.loadLevel(0);
 const golfer = new Golfer();
 golfer.setPosition(190, 190);
 
+function showSplash(): void {
+    image.setPalette(customPalettes.titlePalette);
+    scene.setBackgroundImage(customImages.titleScreen);
+    waitForInput(false);
+}
+
+function showInstructions(): void {
+    music.playSoundUntilDone("~3 C6:0");
+    image.setPalette(customPalettes.inGamePalette);
+    scene.setBackgroundImage(customImages.instructions);
+    waitForInput(false);
+}
+
+function setupLevel(levelToLoad: number): void {
+    music.playSoundUntilDone("~3 C6:0");
+    layout = level.loadLevel(levelToLoad);
+    loadedLevel == 1 && info.setScore(0);
+    info.setBackgroundColor(13);
+
+    golfBallSprite = sprites.create(img`
+        . f .
+        f f f
+        . f .
+        `, SpriteKind.Projectile)
+
+    let startingPosition = layout.getStartingBallPosition();
+    golfBallSprite.setPosition(startingPosition.x, startingPosition.y)
+    golfBallSprite.z = 1;
+    scene.cameraFollowSprite(golfBallSprite);
+
+    golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
+    levelInProgress = true;
+}
+
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-    if (gameState == 1) {
-        music.playSoundUntilDone("~3 C6:0");
-        image.setPalette(customPalettes.inGamePalette)
-        scene.setBackgroundImage(customImages.instructions);
-        gameState = 2;
-    }
-    else if (gameState == 2) {
-        music.playSoundUntilDone("~3 C6:0");
-        layout = level.loadLevel(2);
-        info.setScore(0);
-        info.setBackgroundColor(13);
-
-        golfBallSprite = sprites.create(img`
-            . f .
-            f f f
-            . f .
-            `, SpriteKind.Projectile)
-
-        let startingPosition = layout.getStartingBallPosition();
-        golfBallSprite.setPosition(startingPosition.x, startingPosition.y)
-        golfBallSprite.z = 1;
-        scene.cameraFollowSprite(golfBallSprite);
-
-        golfer.setPosition(golfBallSprite.x - 1, golfBallSprite.y - 14);
-
-        gameState = 3;
-    }
-    if (gameState == 3 && !ballInFlight && !swingStarted) {
+    if (levelInProgress && !ballInFlight && !swingStarted) {
         if (powerMeter.isRunning) {
             directionIndicator.hide();
             let power = powerMeter.stop() * 2.4;
@@ -93,8 +98,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
     }
 });
 
+function waitForInput(resetGame: boolean): void {
+    pause(2000); // wait for users to stop pressing keys
+    game.waitAnyButton();
+    resetGame && game.reset();
+}
+
 controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
-    if (gameState == 3) {
+    if (levelInProgress) {
         level.showMap(golfBallSprite.x, golfBallSprite.y, layout);
     }
 });
@@ -143,24 +154,29 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
 });
 
 scene.onHitTile(SpriteKind.Projectile, 3, (sprite: Sprite) => {
+    levelInProgress = false;
     music.magicWand.playUntilDone();
     let top = (screen.height - 72) >> 1;
     screen.fillRect(0, top, screen.width, 55, 14)
     screen.fillRect(0, top - 4, screen.width, top - 20, 3)
     screen.fillRect(0, top + 55, screen.width, top - 20, 3)
 
-    screen.printCenter("YOU WIN!", top + 7, screen.isMono ? 1 : 3, image.doubledFont(image.font8))
+    screen.printCenter(loadedLevel == level.MAX_LEVEL ? "GAME OVER!" : "NICE JOB!", top + 7, screen.isMono ? 1 : 3, image.doubledFont(image.font8))
     if (info.hasScore()) {
         screen.printCenter("Score:" + info.score(), top + 31, screen.isMono ? 1 : 9, image.font8)
-        if (info.score() < info.highScore()) {
-            info.saveHighScore();
-            screen.printCenter("New Best Score!", top + 24, screen.isMono ? 1 : 9, image.font5);
+        if (loadedLevel === level.MAX_LEVEL) {
+            if (info.score() < info.highScore()) {
+                info.saveHighScore();
+                screen.printCenter("New Best Score!", top + 24, screen.isMono ? 1 : 9, image.font5);
+            }
+            screen.printCenter("Best: " + info.highScore(), top + 42, screen.isMono ? 1 : 9, image.font8);
+            waitForInput(true);
+        } else {
+            loadedLevel++;
+            waitForInput(false);
+            setupLevel(loadedLevel);
         }
-        screen.printCenter("Best: " + info.highScore(), top + 42, screen.isMono ? 1 : 9, image.font8);
     }
-    pause(2000) // wait for users to stop pressing keys
-    game.waitAnyButton()
-    game.reset()
 });
 
 // coefficient of restituion for grass
@@ -203,3 +219,7 @@ scene.onHitTile(SpriteKind.Projectile, 14, (sprite: Sprite) => {
 scene.onHitTile(SpriteKind.Projectile, 15, (sprite: Sprite) => {
     collision(sprite)
 });
+
+showSplash();
+showInstructions();
+setupLevel(loadedLevel);
