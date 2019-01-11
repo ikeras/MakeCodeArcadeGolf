@@ -47,6 +47,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
         music.playSoundUntilDone("~3 C6:0");
         layout = level.loadLevel(2);
         info.setScore(0);
+        info.setBackgroundColor(13);
 
         golfBallSprite = sprites.create(img`
             . f .
@@ -55,7 +56,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             `, SpriteKind.Projectile)
 
         let startingPosition = layout.getStartingBallPosition();
-        golfBallSprite.setPosition(startingPosition.x, startingPosition.y);
+        golfBallSprite.setPosition(16, 50);
         golfBallSprite.z = 1;
         scene.cameraFollowSprite(golfBallSprite);
 
@@ -141,20 +142,19 @@ game.currentScene().eventContext.registerFrameHandler(19, () => {
 
 scene.onHitTile(SpriteKind.Projectile, 3, (sprite: Sprite) => {
     music.magicWand.playUntilDone();
-    let top = (screen.height - 44) >> 1;
-    screen.fillRect(0, top, screen.width, 46, 0)
-    screen.drawLine(0, top, screen.width, top, 1)
-    screen.drawLine(0, top + 46, screen.width, top + 46, 1)
+    let top = (screen.height - 72) >> 1;
+    screen.fillRect(0, top, screen.width, 55, 14)
+    screen.fillRect(0, top - 4, screen.width, top - 20, 3)
+    screen.fillRect(0, top + 55, screen.width, top - 20, 3)
 
-    screen.printCenter("YOU WIN!", top + 8, screen.isMono ? 1 : 5, image.font8)
+    screen.printCenter("YOU WIN!", top + 7, screen.isMono ? 1 : 3, image.doubledFont(image.font8))
     if (info.hasScore()) {
-        screen.printCenter("Score:" + info.score(), top + 23, screen.isMono ? 1 : 2, image.font8)
+        screen.printCenter("Score:" + info.score(), top + 31, screen.isMono ? 1 : 9, image.font8)
         if (info.score() < info.highScore()) {
             info.saveHighScore();
-            screen.printCenter("New Best Score!", top + 34, screen.isMono ? 1 : 2, image.font5);
-        } else {
-            screen.printCenter("Best: " + info.highScore(), top + 34, screen.isMono ? 1 : 2, image.font8);
+            screen.printCenter("New Best Score!", top + 24, screen.isMono ? 1 : 9, image.font5);
         }
+        screen.printCenter("Best: " + info.highScore(), top + 42, screen.isMono ? 1 : 9, image.font8);
     }
     pause(2000) // wait for users to stop pressing keys
     game.waitAnyButton()
